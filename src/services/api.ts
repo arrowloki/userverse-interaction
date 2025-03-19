@@ -1,4 +1,3 @@
-
 import { toast } from "@/components/ui/use-toast";
 
 // User interface
@@ -12,6 +11,10 @@ export interface User {
   status: 'active' | 'inactive' | 'pending';
   created_at: string;
   last_login?: string;
+  department?: string;
+  location?: string;
+  lastActive?: string;
+  joinDate?: string;
 }
 
 // Pagination interface
@@ -68,7 +71,11 @@ class ApiService {
         role: ['admin', 'user', 'editor'][Math.floor(Math.random() * 3)] as User['role'],
         status: ['active', 'inactive', 'pending'][Math.floor(Math.random() * 3)] as User['status'],
         created_at: new Date(Date.now() - Math.random() * 31536000000).toISOString(),
-        last_login: Math.random() > 0.3 ? new Date(Date.now() - Math.random() * 2592000000).toISOString() : undefined
+        last_login: Math.random() > 0.3 ? new Date(Date.now() - Math.random() * 2592000000).toISOString() : undefined,
+        department: ['Sales', 'Marketing', 'Engineering'][Math.floor(Math.random() * 3)],
+        location: ['New York', 'Los Angeles', 'Chicago'][Math.floor(Math.random() * 3)],
+        lastActive: new Date(Date.now() - Math.random() * 31536000000).toISOString(),
+        joinDate: new Date(Date.now() - Math.random() * 31536000000).toISOString()
       }))
     };
     
@@ -86,7 +93,11 @@ class ApiService {
         role: ['admin', 'user', 'editor'][Math.floor(Math.random() * 3)] as User['role'],
         status: ['active', 'inactive', 'pending'][Math.floor(Math.random() * 3)] as User['status'],
         created_at: new Date(Date.now() - Math.random() * 31536000000).toISOString(),
-        last_login: Math.random() > 0.3 ? new Date(Date.now() - Math.random() * 2592000000).toISOString() : undefined
+        last_login: Math.random() > 0.3 ? new Date(Date.now() - Math.random() * 2592000000).toISOString() : undefined,
+        department: ['Sales', 'Marketing', 'Engineering'][Math.floor(Math.random() * 3)],
+        location: ['New York', 'Los Angeles', 'Chicago'][Math.floor(Math.random() * 3)],
+        lastActive: new Date(Date.now() - Math.random() * 31536000000).toISOString(),
+        joinDate: new Date(Date.now() - Math.random() * 31536000000).toISOString()
       }
     };
     

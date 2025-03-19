@@ -1,4 +1,3 @@
-
 export interface User {
   id: number;
   first_name: string;
@@ -9,6 +8,8 @@ export interface User {
   status: 'active' | 'inactive' | 'pending';
   department?: string;
   location?: string;
+  created_at: string;
+  last_login?: string;
   lastActive?: string;
   joinDate?: string;
 }
@@ -28,7 +29,6 @@ export interface Permission {
   category: string;
 }
 
-// Mock Users Data
 export const mockUsers: User[] = [
   {
     id: 1,
@@ -41,7 +41,8 @@ export const mockUsers: User[] = [
     department: "Engineering",
     location: "San Francisco",
     lastActive: "Today",
-    joinDate: "2022-01-05"
+    joinDate: "2022-01-05",
+    created_at: "2022-01-05T00:00:00Z"
   },
   {
     id: 2,
@@ -54,7 +55,8 @@ export const mockUsers: User[] = [
     department: "Marketing",
     location: "New York",
     lastActive: "Yesterday",
-    joinDate: "2022-02-10"
+    joinDate: "2022-02-10",
+    created_at: "2022-02-10T00:00:00Z"
   },
   {
     id: 3,
@@ -67,7 +69,8 @@ export const mockUsers: User[] = [
     department: "Product",
     location: "Chicago",
     lastActive: "2 days ago",
-    joinDate: "2022-03-15"
+    joinDate: "2022-03-15",
+    created_at: "2022-03-15T00:00:00Z"
   },
   {
     id: 4,
@@ -80,7 +83,8 @@ export const mockUsers: User[] = [
     department: "Sales",
     location: "London",
     lastActive: "Today",
-    joinDate: "2022-04-20"
+    joinDate: "2022-04-20",
+    created_at: "2022-04-20T00:00:00Z"
   },
   {
     id: 5,
@@ -93,7 +97,8 @@ export const mockUsers: User[] = [
     department: "Design",
     location: "Paris",
     lastActive: "3 days ago",
-    joinDate: "2022-05-25"
+    joinDate: "2022-05-25",
+    created_at: "2022-05-25T00:00:00Z"
   },
   {
     id: 6,
@@ -106,7 +111,8 @@ export const mockUsers: User[] = [
     department: "Support",
     location: "Berlin",
     lastActive: "Today",
-    joinDate: "2022-06-30"
+    joinDate: "2022-06-30",
+    created_at: "2022-06-30T00:00:00Z"
   },
   {
     id: 7,
@@ -119,7 +125,8 @@ export const mockUsers: User[] = [
     department: "HR",
     location: "Tokyo",
     lastActive: "1 week ago",
-    joinDate: "2022-07-05"
+    joinDate: "2022-07-05",
+    created_at: "2022-07-05T00:00:00Z"
   },
   {
     id: 8,
@@ -132,7 +139,8 @@ export const mockUsers: User[] = [
     department: "Legal",
     location: "Sydney",
     lastActive: "Yesterday",
-    joinDate: "2022-08-10"
+    joinDate: "2022-08-10",
+    created_at: "2022-08-10T00:00:00Z"
   },
   {
     id: 9,
@@ -145,7 +153,8 @@ export const mockUsers: User[] = [
     department: "Executive",
     location: "Singapore",
     lastActive: "Today",
-    joinDate: "2022-09-15"
+    joinDate: "2022-09-15",
+    created_at: "2022-09-15T00:00:00Z"
   },
   {
     id: 10,
@@ -158,7 +167,8 @@ export const mockUsers: User[] = [
     department: "Finance",
     location: "Toronto",
     lastActive: "4 days ago",
-    joinDate: "2022-10-20"
+    joinDate: "2022-10-20",
+    created_at: "2022-10-20T00:00:00Z"
   },
   {
     id: 11,
@@ -171,7 +181,8 @@ export const mockUsers: User[] = [
     department: "Research",
     location: "Melbourne",
     lastActive: "Today",
-    joinDate: "2022-11-25"
+    joinDate: "2022-11-25",
+    created_at: "2022-11-25T00:00:00Z"
   },
   {
     id: 12,
@@ -184,11 +195,11 @@ export const mockUsers: User[] = [
     department: "Development",
     location: "Madrid",
     lastActive: "Yesterday",
-    joinDate: "2022-12-30"
+    joinDate: "2022-12-30",
+    created_at: "2022-12-30T00:00:00Z"
   }
 ];
 
-// Mock Roles Data
 export const mockRoles: Role[] = [
   {
     id: 'r1',
@@ -213,7 +224,6 @@ export const mockRoles: Role[] = [
   }
 ];
 
-// Mock Permissions Data
 export const mockPermissions: Permission[] = [
   { id: 'p1', name: 'users:read', description: 'View user information', category: 'Users' },
   { id: 'p2', name: 'users:create', description: 'Create new users', category: 'Users' },

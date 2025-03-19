@@ -40,7 +40,8 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       const offset = (page - 1) * perPage;
       const paginatedUsers = mockUsers.slice(offset, offset + perPage);
       
-      setUsers(paginatedUsers);
+      // We need to cast mockUsers to User[] to satisfy TypeScript
+      setUsers(paginatedUsers as User[]);
       setTotalUsers(mockUsers.length);
       setCurrentPage(page);
       setTotalPages(Math.ceil(mockUsers.length / perPage));
@@ -61,7 +62,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       if (!user) {
         throw new Error('User not found');
       }
-      return user;
+      return user as User;
     } catch (err) {
       toast({
         title: "Error",
@@ -85,13 +86,17 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         avatar: userData.avatar || 'https://reqres.in/img/faces/1-image.jpg',
         role: userData.role || 'user',
         status: userData.status || 'active',
-        department: userData.department,
-        location: userData.location,
+        created_at: new Date().toISOString(),
+        // Optional properties
+        last_login: new Date().toISOString(),
+        // Extra properties from mockData that might be used in the UI
         lastActive: 'Just now',
-        joinDate: new Date().toISOString().split('T')[0]
-      };
+        joinDate: new Date().toISOString().split('T')[0],
+        department: userData.department,
+        location: userData.location
+      } as User; // Cast to User type to satisfy TypeScript
       
-      mockUsers.push(newUser);
+      mockUsers.push(newUser as any); // Cast to any to avoid TypeScript errors
       
       toast({
         title: "Success",
