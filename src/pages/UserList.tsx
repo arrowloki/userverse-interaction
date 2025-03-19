@@ -38,8 +38,8 @@ const UserList = () => {
   const { users, loading, totalPages, currentPage, fetchUsers, deleteUser } = useUsers();
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [searchTerm, setSearchTerm] = useState('');
-  const [filterRole, setFilterRole] = useState('');
-  const [filterStatus, setFilterStatus] = useState('');
+  const [filterRole, setFilterRole] = useState('all');
+  const [filterStatus, setFilterStatus] = useState('all');
   const [userToDelete, setUserToDelete] = useState<number | null>(null);
 
   // Apply filters
@@ -49,8 +49,8 @@ const UserList = () => {
       user.last_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       user.email.toLowerCase().includes(searchTerm.toLowerCase());
     
-    const matchesRole = filterRole ? user.role === filterRole : true;
-    const matchesStatus = filterStatus ? user.status === filterStatus : true;
+    const matchesRole = filterRole === 'all' ? true : user.role === filterRole;
+    const matchesStatus = filterStatus === 'all' ? true : user.status === filterStatus;
     
     return matchesSearch && matchesRole && matchesStatus;
   });
@@ -101,7 +101,7 @@ const UserList = () => {
               <SelectValue placeholder="Filter by role" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="">All Roles</SelectItem>
+              <SelectItem value="all">All Roles</SelectItem>
               <SelectItem value="admin">Admin</SelectItem>
               <SelectItem value="user">User</SelectItem>
               <SelectItem value="editor">Editor</SelectItem>
@@ -114,7 +114,7 @@ const UserList = () => {
               <SelectValue placeholder="Filter by status" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="">All Status</SelectItem>
+              <SelectItem value="all">All Status</SelectItem>
               <SelectItem value="active">Active</SelectItem>
               <SelectItem value="inactive">Inactive</SelectItem>
               <SelectItem value="pending">Pending</SelectItem>
