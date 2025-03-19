@@ -1,6 +1,7 @@
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { User, PaginatedResponse, apiService } from '@/services/api';
+import { User } from '@/services/api';
+import { mockUsers } from '@/data/mockData';
 import { toast } from '@/components/ui/use-toast';
 
 interface UserContextType {
@@ -31,11 +32,18 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     setLoading(true);
     setError(null);
     try {
-      const response = await apiService.getUsers(page);
-      setUsers(response.data);
-      setTotalUsers(response.total);
+      // Simulate API delay
+      await new Promise(resolve => setTimeout(resolve, 500));
+      
+      // Get mock data
+      const perPage = 6;
+      const offset = (page - 1) * perPage;
+      const paginatedUsers = mockUsers.slice(offset, offset + perPage);
+      
+      setUsers(paginatedUsers);
+      setTotalUsers(mockUsers.length);
       setCurrentPage(page);
-      setTotalPages(response.total_pages);
+      setTotalPages(Math.ceil(mockUsers.length / perPage));
     } catch (err) {
       setError('Failed to fetch users');
       console.error(err);
@@ -46,8 +54,14 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   const fetchUser = async (id: number): Promise<User | undefined> => {
     try {
-      const response = await apiService.getUser(id);
-      return response.data;
+      // Simulate API delay
+      await new Promise(resolve => setTimeout(resolve, 300));
+      
+      const user = mockUsers.find(user => user.id === id);
+      if (!user) {
+        throw new Error('User not found');
+      }
+      return user;
     } catch (err) {
       toast({
         title: "Error",
@@ -60,7 +74,25 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   const createUser = async (userData: Partial<User>): Promise<boolean> => {
     try {
-      await apiService.createUser(userData);
+      // Simulate API delay
+      await new Promise(resolve => setTimeout(resolve, 500));
+      
+      const newUser: User = {
+        id: mockUsers.length + 1,
+        first_name: userData.first_name || '',
+        last_name: userData.last_name || '',
+        email: userData.email || '',
+        avatar: userData.avatar || 'https://reqres.in/img/faces/1-image.jpg',
+        role: userData.role || 'user',
+        status: userData.status || 'active',
+        department: userData.department,
+        location: userData.location,
+        lastActive: 'Just now',
+        joinDate: new Date().toISOString().split('T')[0]
+      };
+      
+      mockUsers.push(newUser);
+      
       toast({
         title: "Success",
         description: "User created successfully",
@@ -79,7 +111,16 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   const updateUser = async (id: number, userData: Partial<User>): Promise<boolean> => {
     try {
-      await apiService.updateUser(id, userData);
+      // Simulate API delay
+      await new Promise(resolve => setTimeout(resolve, 500));
+      
+      const index = mockUsers.findIndex(user => user.id === id);
+      if (index === -1) {
+        throw new Error('User not found');
+      }
+      
+      mockUsers[index] = { ...mockUsers[index], ...userData };
+      
       toast({
         title: "Success",
         description: "User updated successfully",
@@ -98,7 +139,16 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   const deleteUser = async (id: number): Promise<boolean> => {
     try {
-      await apiService.deleteUser(id);
+      // Simulate API delay
+      await new Promise(resolve => setTimeout(resolve, 500));
+      
+      const index = mockUsers.findIndex(user => user.id === id);
+      if (index === -1) {
+        throw new Error('User not found');
+      }
+      
+      mockUsers.splice(index, 1);
+      
       toast({
         title: "Success",
         description: "User deleted successfully",
